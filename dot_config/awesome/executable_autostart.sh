@@ -18,6 +18,7 @@ run numlockx on
 #run nitrogen --restore
 run rclone mount Harcole: ~/Drive
 run variety
+run noisetorch -i
 #you can set wallpapers in themes as well
 #run applications from startup
 #run firefox

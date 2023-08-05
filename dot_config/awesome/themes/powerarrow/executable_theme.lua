@@ -644,7 +644,7 @@ local mytasklist1 = wibox.widget {
 
 
     -- Create the wibox
-    s.mywibox = awful.wibar({border_width=5,border_color="00000000", position = "top", screen = s,shape = custom_shape, height = dpi(25), bg = "FF000000", fg = theme.fg_normal })
+    s.mywibox = awful.wibar({border_width=5, border_color = "#FF000000", position = "top", screen = s,shape = custom_shape, height = dpi(25), bg = "FF000000", fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
