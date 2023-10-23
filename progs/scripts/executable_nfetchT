@@ -1,0 +1,14 @@
+#!/bin/bash
+
+current_hour=$(sw)
+
+if [ "$current_hour" == 1 ]; then
+    config_file="$HOME/.config/neofetch/n_config.conf"
+else
+    config_file="$HOME/.config/neofetch/d_config.conf"
+fi
+
+#echo $config_file
+# Run Neofetch with the selected configuration file
+neofetch --config $config_file
+
