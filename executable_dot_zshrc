@@ -91,6 +91,7 @@ fi
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -504,6 +505,7 @@ alias personal='cp -Rf /personal/* ~'
 
 # CUSTOM ENV VAR
 export CURSEFORGE_API_KEY=$2a$10$sI.yRk4h4R49XYF94IIijOrO4i3W3dAFZ4ssOlNE10GYrDhc2j8K.
+
 
 # PATHS
 export PATH=/home/red/.cargo/bin:$PATH

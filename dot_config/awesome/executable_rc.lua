@@ -97,14 +97,11 @@ awful.spawn.with_shell(
 -- {{{ Variable definitions
 
 local themes = {
-    "multicolor",		-- 1
     "powerarrow",      		-- 2
-    "powerarrow-blue",	 	-- 3
-    "blackburn",		-- 4
 }
 
 -- choose your theme here
-local chosen_theme = themes[2]
+local chosen_theme = themes[1]
 
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
@@ -157,7 +154,6 @@ local alacritty_scratch = bling.module.scratchpad:new {
     rubato = {y = anim_y}
 }
 
-
 -- modkey or mod4 = super key
 local modkey       = "Mod4"
 local altkey       = "Mod1"
@@ -166,16 +162,15 @@ local modkey1      = "Control"
 -- personal variables
 --change these variables if you want
 local browser1          = "brave"
-local browser2          = "brave"
-local browser3          = "brave"
+
 local editor            = os.getenv("EDITOR") or "nvim"
 local editorgui         = "code"
-local filemanager       = "thunar"
-local mailclient        = "thunderpird"
+local filemanager       = "dolphin"
+local mailclient        = "thunderbird"
 local mediaplayer       = "spotify"
 local terminal          = "alacritty"
 local virtualmachine    = "virtualbox"
-local spotify_shell     = require("awesome-wm-widgets.spotify-shell.spotify-shell")
+
 -- awesome variables
 awful.util.terminal = terminal
 --awful.util.tagnames = {  "", "", "", "", "" }
@@ -184,18 +179,19 @@ awful.util.terminal = terminal
 --awful.util.tagnames = { " ", " ", " ", " " }
 --awful.util.tagnames = { "  ", "  ", "  ", "  " }
 awful.util.tagnames = { "ハ", "メ", "ー", "ス" }
---awful.util.tagnames = { "www", "edit", "gimp", "inkscape", "music" }
 -- Use this : https://fontawesome.com/cheatsheet
 --awful.util.tagnames = { "", "", "", "", "" }
 awful.layout.suit.tile.left.mirror = true
+
 awful.layout.layouts = {
+    bling.layout.deck,
+    lain.layout.cascade,
     awful.layout.suit.tile,
     awful.layout.suit.floating,
     awful.layout.suit.tile.left,
     machi.default_layout,
 --    awful.layout.suit.tile.bottom,
 --    awful.layout.suit.tile.top,
-    bling.layout.deck,
 --    awful.layout.suit.fair,
   --awful.layout.suit.fair.horizontal,
 --awful.layout.suit.spiral,
@@ -205,12 +201,20 @@ awful.layout.layouts = {
     --awful.layout.suit.corner.ne,
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
-  --  lain.layout.cascade,
   --  lain.layout.cascade.tile,
     lain.layout.centerwork,
   --  lain.layout.centerwork.horizontal,
   --  lain.layout.termfair,
   --  lain.layout.termfair.center,
+}
+
+machi.editor.nested_layouts = {
+	bling.layout.deck,
+	lain.layout.cascade,
+	awful.layout.suit.tile,
+	awful.layout.suit.floating,
+	awful.layout.suit.tile.left,
+
 }
 
 require("beautiful").layout_machi = machi.get_icon()
@@ -281,7 +285,7 @@ beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv
 -- }}}
 
 
-bling.module.flash_focus.enable()
+
 
 -- {{{ Menu
 local myawesomemenu = {
@@ -351,14 +355,13 @@ globalkeys = my_table.join(
     -- {{{ Personal keybindings
     awful.key({ modkey }, "w", function () awful.util.spawn( browser1 ) end,
         {description = browser1, group = "function keys"}),
-    -- Spotify Shell
+    -- ScratchPads
     awful.key({ modkey,        }, "d", function () alacritty_scratch:toggle() end,
         {description = "Alacritty ScratcPad", group = "ScratchPads"}),
-    -- Spotify Pad
-	awful.key({ modkey }, "x", function() spotify_scratch:toggle() end,
-	  { description = "spotify scratchpad", group = "Music"}),
-	awful.key({ modkey }, "c", function() discord_scratch:toggle() end,
-	  { description = "spotify scratchpad", group = "Music"}),
+    awful.key({ modkey }, "x", function() spotify_scratch:toggle() end,
+  	{ description = "spotify scratchpad", group = "ScratchPads"}),
+    awful.key({ modkey }, "c", function() discord_scratch:toggle() end,
+  	{ description = "spotify scratchpad", group = "ScratchPads"}),
 
     -- Volume Control
     awful.key({ modkey }, "]", function() volume_widget:inc(5) end,
@@ -367,11 +370,6 @@ globalkeys = my_table.join(
         {description = "DecreaseVolume", group= "Music"}),
     awful.key({ modkey }, "\\", function() volume_widget:toggle() end,
         {description = "ToggleMute/Unmute", group= "Music"}),
-
-
-    -- Function keys
-    awful.key({ }, "F12", function () awful.util.spawn( "xfce4-terminal --drop-down" ) end,
-        {description = "dropdown terminal" , group = "function keys"}),
 
 
     -- super + ... function keys
@@ -383,17 +381,11 @@ globalkeys = my_table.join(
         {description = "inkscape" ,group = "function keys" }),
     awful.key({ modkey }, "F4", function () awful.util.spawn( "gimp" ) end,
         {description = "gimp" , group = "function keys" }),
-    awful.key({ modkey }, "F5", function () awful.util.spawn( "meld" ) end,
-        {description = "meld" , group = "function keys" }),
-    awful.key({ modkey }, "F6", function () awful.util.spawn( "vlc --video-on-top" ) end,
+    awful.key({ modkey }, "F5", function () awful.util.spawn( "vlc --video-on-top" ) end,
         {description = "vlc" , group = "function keys" }),
-    awful.key({ modkey }, "F7", function () awful.util.spawn( "virtualbox" ) end,
-        {description = virtualmachine , group = "function keys" }),
-    awful.key({ modkey }, "F8", function () awful.util.spawn( filemanager ) end,
+    awful.key({ modkey }, "F6", function () awful.util.spawn( filemanager ) end,
         {description = filemanager , group = "function keys" }),
-    awful.key({ modkey }, "F9", function () awful.util.spawn( mailclient ) end,
-        {description = mailclient , group = "function keys" }),
-    awful.key({ modkey }, "F10", function () awful.util.spawn( mediaplayer ) end,
+    awful.key({ modkey }, "F7", function () awful.util.spawn( mediaplayer ) end,
         {description = mediaplayer , group = "function keys" }),
     awful.key({ modkey }, "z", function () awful.util.spawn( "./.config/rofi/applets/bin/powermenu.sh" ) end,
         {description = "PowerMenu" , group = "function keys" }),
@@ -418,8 +410,6 @@ globalkeys = my_table.join(
     -- super + ...
     awful.key({ modkey }, "e", function () awful.util.spawn( editorgui ) end,
         {description = "run gui editor", group = "super"}),
-    --awful.key({ modkey }, "h", function () awful.util.spawn( "urxvt -T 'htop task manager' -e htop" ) end,
-        --{description = "htop", group = "super"}),
  awful.key({altkey}, "Tab", function()
      awesome.emit_signal("bling::window_switcher::turn_on")
  end, {description = "Window Switcher", group = "bling"}),
@@ -433,67 +423,31 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "Escape", function () awful.util.spawn( "xkill" ) end,
         {description = "Kill proces", group = "hotkeys"}),
 
-    -- super + shift + ...
-    awful.key({ modkey, "Shift"   }, "Return", function() awful.util.spawn( filemanager ) end),
+    -- super + shift + ..
 
 
     -- ctrl + shift + ...
-    awful.key({ modkey1, "Shift"  }, "Escape", function() awful.util.spawn("xfce4-taskmanager") end),
 
 
     -- ctrl+alt +  ...
-    awful.key({ modkey1, altkey   }, "w", function() awful.util.spawn( "arcolinux-welcome-app" ) end,
-        {description = "ArcoLinux Welcome App", group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "e", function() awful.util.spawn( "arcolinux-tweak-tool" ) end,
-        {description = "ArcoLinux Tweak Tool", group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "a", function() awful.util.spawn( "xfce4-appfinder" ) end,
-        {description = "Xfce appfinder", group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "b", function() awful.util.spawn( filemanager ) end,
-        {description = filemanager, group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "c", function() awful.util.spawn("catfish") end,
-        {description = "catfish", group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "f", function() awful.util.spawn( browser2 ) end,
-        {description = browser2, group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "g", function() awful.util.spawn( browser3 ) end,
-        {description = browser3, group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "i", function() awful.util.spawn("nitrogen") end,
-        {description = nitrogen, group = "alt+ctrl"}),
     awful.key({ modkey1, altkey   }, "k", function() awful.util.spawn( "arcolinux-logout" ) end,
         {description = scrlocker, group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "l", function() awful.util.spawn( "arcolinux-logout" ) end,
-        {description = scrlocker, group = "alt+ctrl"}),
+
     awful.key({ modkey1, altkey   }, "o", function() awful.spawn.with_shell("$HOME/.config/awesome/scripts/picom-toggle.sh") end,
         {description = "Picom toggle", group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "s", function() awful.util.spawn( mediaplayer ) end,
-        {description = mediaplayer, group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "t", function() awful.util.spawn( terminal ) end,
-        {description = terminal, group = "alt+ctrl"}),
     awful.key({ modkey1, altkey   }, "u", function() awful.util.spawn( "pavucontrol" ) end,
         {description = "pulseaudio control", group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "v", function() awful.util.spawn( browser1 ) end,
-        {description = browser1, group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "Return", function() awful.util.spawn(terminal) end,
-        {description = terminal, group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "m", function() awful.util.spawn( "xfce4-settings-manager" ) end,
-        {description = "Xfce settings manager", group = "alt+ctrl"}),
     awful.key({ modkey1, altkey   }, "p", function() awful.util.spawn( "pamac-manager" ) end,
         {description = "Pamac Manager", group = "alt+ctrl"}),
 
     -- alt + ...
-    awful.key({ altkey }, "F2", function () awful.util.spawn( "xfce4-appfinder --collapsed" ) end,
-        {description = "Xfce appfinder", group = "altkey"}),
-    awful.key({ altkey }, "F3", function () awful.util.spawn( "xfce4-appfinder" ) end,
-        {description = "Xfce appfinder", group = "altkey"}),
+
     -- awful.key({ altkey }, "F5", function () awful.spawn.with_shell( "xlunch --config ~/.config/xlunch/default.conf --input ~/.config/xlunch/entries.dsv" ) end,
     --    {description = "Xlunch app launcher", group = "altkey"}),
 
     -- screenshots
-    awful.key({ }, "Print", function () awful.util.spawn("flameshot gui") end,
+    awful.key({modkey, "Shift"}, "s", function () awful.util.spawn("flameshot gui") end,
         {description = "flameshot", group = "screenshots"}),
-    awful.key({ modkey1           }, "Print", function () awful.util.spawn( "xfce4-screenshooter" ) end,
-        {description = "Xfce screenshot", group = "screenshots"}),
-    awful.key({ modkey1, "Shift"  }, "Print", function() awful.util.spawn("gnome-screenshot -i") end,
-        {description = "Gnome screenshot", group = "screenshots"}),
 
     -- Personal keybindings}}}
 
@@ -614,6 +568,23 @@ globalkeys = my_table.join(
         end,
         {description = "go back", group = "client"}),
 
+    -- Floating Window Managing
+awful.key({ modkey, "Shift"  }, "t",      function (c) client.focus.ontop = not client.focus.ontop            end,
+                {description = "toggle keep on top", group = "client"}),
+awful.key({ altkey }, "Next",  function (c) client.focus:relative_move( 20,  20, -40, -40) end,
+		{description = "Size Inc of Floating Client", group = "client"}),
+awful.key({ altkey }, "Prior", function (c) client.focus:relative_move(-20, -20,  40,  40) end,
+		{description = "Size Dec of Floating Client", group = "client"}),
+awful.key({ altkey }, "Down",  function (c) client.focus:relative_move(  0,  20,   0,   0) end,
+		{description = "Move Down Floating Client", group = "client"}),
+awful.key({ altkey }, "Up",    function (c) client.focus:relative_move(  0, -20,  0,   0) end,
+		{description = "Move Up Floating Client", group = "client"}),
+awful.key({ altkey }, "Left",  function (c) client.focus:relative_move(-20,   0,   0,   0) end,
+		{description = "Move Left Floating Client", group = "client"}),
+awful.key({ altkey }, "Right", function (c) client.focus:relative_move( 20,   0,   0,   0) end,
+		{description = "Move Right Floating CLient", group = "client"}),
+
+
     -- Show/Hide Wibox
     awful.key({ modkey }, "b", function ()
             for s in screen do
@@ -666,32 +637,26 @@ globalkeys = my_table.join(
 
 	-- LAYOUT MACHI --
 	
-	awful.key({ modkey,           }, ".",    function () machi.default_editor.start_interactive() end,
+	awful.key({ modkey, altkey  }, ".",    function () machi.default_editor.start_interactive() end,
               {description = "edit the current layout if it is a machi layout", group = "layout"}),
     awful.key({ modkey, "Shift"          }, ".",    function () machi.switcher.start(client.focus) end,
               {description = "switch between windows for a machi layout", group = "layout"}),
 
 	-- BLING --
-
+-- Tabbed
     awful.key({ altkey, "Shift"   }, "/",     function () bling.module.tabbed.pick()           end,
               {description = "increase master width factor", group = "bling"}),
     awful.key({ altkey, "Shift"   }, ".",     function () bling.module.tabbed.iter()           end,
               {description = "decrease master width factor", group = "bling"}),
     awful.key({ altkey, "Shift"   }, ",",     function () bling.module.tabbed.pop()            end,
               {description = "decrease master width factor", group = "bling"}),
-
+-- Layout
     awful.key({ altkey, "Shift"   }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
     awful.key({ altkey, "Shift"   }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
-              {description = "decrease the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1, nil, true)    end,
-              {description = "increase the number of columns", group = "layout"}),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
-              {description = "decrease the number of columns", group = "layout"}),
     awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
     --awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
@@ -756,12 +721,6 @@ globalkeys = my_table.join(
     --awful.key({}, "XF86AudioNext", function() awful.util.spawn("playerctl next", false) end),
     --awful.key({}, "XF86AudioPrev", function() awful.util.spawn("playerctl previous", false) end),
     --awful.key({}, "XF86AudioStop", function() awful.util.spawn("playerctl stop", false) end),
-
---Media keys supported by mpd.
-    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end),
-    awful.key({}, "XF86AudioNext", function () awful.util.spawn("mpc next") end),
-    awful.key({}, "XF86AudioPrev", function () awful.util.spawn("mpc prev") end),
-    awful.key({}, "XF86AudioStop", function () awful.util.spawn("mpc stop") end),
 
     -- MPD control
 
@@ -931,57 +890,6 @@ awful.rules.rules = {
           -- Set applications to always map on the tag 2 on screen 1.
     --{ rule = { class = "Subl" },
         --properties = { screen = 1, tag = awful.util.tagnames[2], switchtotag = true  } },
-
-
-    -- Set applications to always map on the tag 1 on screen 1.
-    -- find class or role via xprop command
-    --{ rule = { class = browser2 },
-      --properties = { screen = 1, tag = awful.util.tagnames[1], switchtotag = true  } },
-
-    --{ rule = { class = browser1 },
-      --properties = { screen = 1, tag = awful.util.tagnames[1], switchtotag = true  } },
-
-    --{ rule = { class = "Vivaldi-stable" },
-        --properties = { screen = 1, tag = awful.util.tagnames[1], switchtotag = true } },
-
-    --{ rule = { class = "Chromium" },
-      --properties = { screen = 1, tag = awful.util.tagnames[1], switchtotag = true  } },
-
-    --{ rule = { class = "Opera" },
-      --properties = { screen = 1, tag = awful.util.tagnames[1],switchtotag = true  } },
-
-    -- Set applications to always map on the tag 2 on screen 1.
-    --{ rule = { class = "Subl" },
-        --properties = { screen = 1, tag = awful.util.tagnames[2],switchtotag = true  } },
-
-    --{ rule = { class = editorgui },
-        --properties = { screen = 1, tag = awful.util.tagnames[2], switchtotag = true  } },
-
-    --{ rule = { class = "Brackets" },
-        --properties = { screen = 1, tag = awful.util.tagnames[2], switchtotag = true  } },
-
-    --{ rule = { class = "Code" },
-        --properties = { screen = 1, tag = awful.util.tagnames[2], switchtotag = true  } },
-
-    --    { rule = { class = "Geany" },
-         --  properties = { screen = 1, tag = awful.util.tagnames[2], switchtotag = true  } },
-
-
-    -- Set applications to always map on the tag 3 on screen 1.
-    --{ rule = { class = "Inkscape" },
-        --properties = { screen = 1, tag = awful.util.tagnames[3], switchtotag = true  } },
-
-    -- Set applications to always map on the tag 4 on screen 1.
-    --{ rule = { class = "Gimp" },
-        --properties = { screen = 1, tag = awful.util.tagnames[4], switchtotag = true  } },
-
-    -- Set applications to always map on the tag 5 on screen 1.
-    --{ rule = { class = "Meld" },
-        --properties = { screen = 1, tag = awful.util.tagnames[5] , switchtotag = true  } },
-
-
-    -- Set applications to be maximized at startup.
-    -- find class or role via xprop command
 
     { rule = { class = editorgui },
           properties = { maximized = true } },
@@ -1185,6 +1093,8 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
+
+bling.module.flash_focus.enable()
 -- Enable sloppy focus, so that focus follows mouse.
 
 beautiful.border_focus = "#343dba"
