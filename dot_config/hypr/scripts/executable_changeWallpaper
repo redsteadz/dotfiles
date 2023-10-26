@@ -1,0 +1,23 @@
+#!/bin/bash
+# current_hour=$(date +%H)
+current_hour = 1
+# Define the paths for DIR
+night_path=$HOME/.config/hypr/bg
+day_path=$HOME/progs/aesthetic-wallpapers/images
+
+# Check if it's later than 11pm or earlier than 6am
+if [ $current_hour -ge 23 -o $current_hour -lt 6 ]; then
+    DIR="$night_path"
+else
+    DIR="$day_path"
+fi
+
+PICS=($(ls ${DIR}))
+RANDOMPICS=${PICS[ $RANDOM % ${#PICS[@]} ]}
+
+if [[ $(pidof swaybg) ]]; then
+  pkill swaybg
+fi
+
+swaybg -m fill -i ${DIR}/${RANDOMPICS}
+notify-send "${RANDOMPICS}"
