@@ -36,6 +36,7 @@ window#waybar.hidden {
 #custom-updater-improved,
 #custom-keybindings,
 #custom-cycle_wall,
+#mpris,
 #network {
 	border-radius: 0px;
 	margin: 4px 0px;
@@ -43,6 +44,7 @@ window#waybar.hidden {
   color: #3A3B3C;
   /*border: 2px solid #3a3b3c; */
 }
+
 
 #workspaces {
 	border-radius: 4px;
@@ -83,6 +85,13 @@ window#waybar.hidden {
     animation-direction: alternate;
 }
 
+#mpris{
+	background-color: #1e1e2e;
+  color: white;
+  border: 0.6px solid #74c7ec;
+  border-width: 0.6px 0px 0.6px 0px;
+  padding-left: 10px;
+}
 #clock {
 	background-color: #1e1e2e;
   color: white;
@@ -221,7 +230,7 @@ window#waybar.hidden {
 }
 
 #pulseaudio.bluetooth {
-	background-color: #f5c2e7;
+	background-color: #1E1E2E;
 }
 #pulseaudio.muted {
 	background-color: #313244;

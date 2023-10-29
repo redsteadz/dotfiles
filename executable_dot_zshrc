@@ -510,15 +510,19 @@ export PATH=/home/red/.cargo/bin:$PATH
 export PATH=/home/red/progs/eww/target/release:$PATH
 export PATH=/usr/lib/:$PATH
 export PATH=/home/red/go/bin:$PATH
-
+export PATH=/home/red/.local/bin:$PATH
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 # reporting tools - install when not installed
 #neofetch
+nfetchT
 #screenfetch
 #alsi
 #paleofetch
 #fetch
 #hfetch
-sfetch
+#sfetch
 #ufetch
 #ufetch-arco
 #pfetch
@@ -529,4 +533,4 @@ sfetch
 #
 eval "$(starship init zsh)"
 # Set up Node Version Manager
-source /usr/share/nvm/init-nvm.sh
+#source /usr/share/nvm/init-nvm.sh
