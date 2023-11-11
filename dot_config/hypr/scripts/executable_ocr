@@ -1,0 +1,2 @@
+grimshot save area ~/Pictures/ocr/temp.png
+tesseract ~/Pictures/ocr/temp.png ~/Pictures/ocr/temp -l afr && wl-copy < ~/Pictures/ocr/temp.txt

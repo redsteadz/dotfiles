@@ -37,6 +37,7 @@ window#waybar.hidden {
 #custom-keybindings,
 #custom-cycle_wall,
 #mpris,
+#cava,
 #network {
 	border-radius: 0px;
 	margin: 4px 0px;
@@ -217,6 +218,14 @@ window#waybar.hidden {
 #custom-keybindings {
   background-color: #86b4fa;
   font-size: 18px;
+}
+
+#cava{ 
+	background-color: #1e1e2e;
+  color: white;
+  border: 0.6px solid #74c7ec;
+  border-left: 0px;
+  border-right: 0px;
 }
 
 #pulseaudio {

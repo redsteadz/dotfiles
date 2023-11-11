@@ -11,7 +11,7 @@
   "margin-left": 0,
   "margin-right": 0,
 
-  "modules-left": ["cpu", "memory","mpris","disk" ],
+  "modules-left": ["cpu", "memory","mpris","disk"],
   "modules-center": ["hyprland/workspaces"],
-  "modules-right": ["custom/cycle_wall","custom/updater", "pulseaudio","battery" ,"network", "clock", "tray", "custom/power"],
+  "modules-right": ["custom/cycle_wall","custom/updater", "pulseaudio", "battery" ,"network", "clock", "tray", "custom/power"],
 }

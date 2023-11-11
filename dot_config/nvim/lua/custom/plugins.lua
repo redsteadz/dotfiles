@@ -2,7 +2,15 @@ local overrides = require "custom.configs.overrides"
 local ls = require("luasnip")
 ---@type NvPluginSpec[]
 local plugins = {
-
+  {
+    "CRAG666/code_runner.nvim",
+    config = function ()
+      require('code_runner').setup {
+        mode = "term",
+      }
+    end,
+    lazy = false,
+  },
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
@@ -22,8 +30,13 @@ local plugins = {
   },
   -- Override plugin definition options
   {
-    "pocco81/auto-save.nvim",
-    lazy = false,
+    'pocco81/auto-save.nvim',
+    config = function()
+      require('auto-save').setup {
+        enabled = false,
+      }
+    end,
+    cond = nil,
   },
   {
     "neovim/nvim-lspconfig",

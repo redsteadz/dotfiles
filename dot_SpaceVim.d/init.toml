@@ -29,6 +29,7 @@
 name = 'autocomplete'
 auto_completion_return_key_behavior = "complete"
 auto_completion_tab_key_behavior = "smart"
+auto_completion_enable_snippets_in_popup = true
 
 [[layers]]
 name = 'colorscheme'
@@ -40,11 +41,17 @@ name = 'colorscheme'
 # [[custom_plugins]]
 # repo = 'SirVer/ultisnips'
 # merged = 0
-#
+
+
+# [[custom_plugins]]
+# repo = 'Shougo/deoplete.nvim'
+# merged = 0
 #
 # [[custom_plugins]]
-# repo = 'honza/vim-snippets'
+# repo = 'Shougo/neosnippet.vim'
 # merged = 0
+
+
 
 [[layers]]
 name = 'shell'

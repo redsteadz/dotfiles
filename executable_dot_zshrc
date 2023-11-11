@@ -145,6 +145,8 @@ alias l.="ls -A | egrep '^\.'"
 alias listdir="ls -d */ > list"
 alias tb="taskbook"
 
+alias t3w='tmux new-session \; split-window -h \; split-window -v \; select-layout "$(cat ~/minimal3Win)"'
+
 #pacman
 alias sps='sudo pacman -S'
 alias spr='sudo pacman -R'
@@ -215,6 +217,7 @@ alias pacman="sudo pacman --color auto"
 alias update="sudo pacman -Syyu"
 alias upd="sudo pacman -Syyu"
 
+alias v="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim"
 # paru as aur helper - updates everything
 alias pksyua="paru -Syu --noconfirm"
 alias upall="paru -Syu --noconfirm"
@@ -512,7 +515,10 @@ export PATH=/usr/lib/:$PATH
 export PATH=/home/red/go/bin:$PATH
 export PATH=/home/red/.local/bin:$PATH
 export PYENV_ROOT="$HOME/.pyenv"
+export FZF_DEFAULT_COMMAND='find .'
+export BROSWER="brave"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(fasd --init auto)"
 eval "$(pyenv init -)"
 # reporting tools - install when not installed
 #neofetch

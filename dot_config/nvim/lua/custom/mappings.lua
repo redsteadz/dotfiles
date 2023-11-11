@@ -23,7 +23,7 @@ M.dap = {
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
-    ["<leader>rc"] = {"[[:lua require('nvterm.terminal').send('g++ -o a.out ' .. vim.fn.expand('%') .. ' && ./a.out ', 'horizontal')<CR>]]", "Run code", opts = {silent=true, nowait = true}},
+    ["<leader>rc"] = {":RunCode<CR>", "Runs za code", opts = {silent=true, nowait = true}},
   },
   v = {
     [">"] = { ">gv", "indent"},

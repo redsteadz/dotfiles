@@ -4,6 +4,8 @@
 #type "var" in a terminal to change settings - example
 #variety &
 
+number_file="/home/red/.config/hypr/switch.txt"
+echo "0" > "$number_file"
 SCRIPTSDIR=$HOME/.config/hypr/scripts
 
 # Kill already running process
@@ -35,6 +37,6 @@ dex $HOME/.config/autostart/arcolinux-welcome-app.desktop &
 # nm-applet --indicator
 sudo tlp start
 sudo tlp setcharge
+pypr
 sudo modprobe snd_aloop
-number_file="/home/red/.config/hypr/switch.txt"
-echo "0" > "$number_file"
+
