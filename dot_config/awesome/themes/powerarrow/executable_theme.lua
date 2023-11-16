@@ -569,6 +569,7 @@ function theme.at_screen_connect(s)
     -- Create a tasklist widget
     --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
+
 s.mytasklist = awful.widget.tasklist {
     screen   = s,
     filter   = awful.widget.tasklist.filter.currenttags,
@@ -576,8 +577,8 @@ s.mytasklist = awful.widget.tasklist {
     layout   = {
         spacing_widget = {
             {
-                forced_width  = 5,
-                forced_height = 24,
+                forced_width  = 0,
+                forced_height = 0,
                 thickness     = 1,
                 color         = '#777777',
                 widget        = wibox.widget.separator
@@ -594,7 +595,7 @@ s.mytasklist = awful.widget.tasklist {
     widget_template = {
         {
             wibox.widget.base.make_widget(),
-            forced_height = 5,
+            forced_height = 0,
             id            = 'background_role',
             widget        = wibox.container.background,
         },
@@ -628,7 +629,6 @@ s.mytasklist = awful.widget.tasklist {
 local mytasklist1 = wibox.widget {
     {
         s.mytasklist,
-        left = 30,
         widget =wibox.container.margin,
     },
     bg         = "#181926",
@@ -636,7 +636,6 @@ local mytasklist1 = wibox.widget {
     shape      = custom_shape,
     shape_border_width = 1,
     shape_border_color = "#75A1F1",
-    forced_width = 0,
     widget     = wibox.container.background,
 }
 
@@ -644,7 +643,7 @@ local mytasklist1 = wibox.widget {
 
 
     -- Create the wibox
-    s.mywibox = awful.wibar({border_width=5, border_color = "#FF000000", position = "top", screen = s,shape = custom_shape, height = dpi(25), bg = "FF000000", fg = theme.fg_normal })
+    s.mywibox = awful.wibar({border_width=5, border_color = "transparent", position = "top", screen = s,shape = custom_shape, height = dpi(25), bg = "FF000000", fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -680,6 +679,7 @@ local mytasklist1 = wibox.widget {
             --arrow("alpha", "#889FA7"),
             --wibox.container.background(wibox.container.margin(wibox.widget { mpdicon, theme.mpd.widget, layout = wibox.layout.align.horizontal }, dpi(3), dpi(6)), "#889FA7"),
             myramz,
+	    mytasklist1,
 	    sp,
             myvolumez,
 	    sp,
