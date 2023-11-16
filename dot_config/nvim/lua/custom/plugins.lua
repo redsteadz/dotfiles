@@ -2,11 +2,38 @@ local overrides = require "custom.configs.overrides"
 local ls = require("luasnip")
 ---@type NvPluginSpec[]
 local plugins = {
+
+  {
+      "AckslD/nvim-neoclip.lua",
+  requires = {
+    -- you'll need at least one of these
+    -- {'nvim-telescope/telescope.nvim'},
+    -- {'ibhagwan/fzf-lua'},
+  },
+  config = function()
+    require('neoclip').setup({
+        continuous_sync = true,
+      })
+  end,
+  },
+  lazy = false,
+  {
+    "ellisonleao/glow.nvim",
+    config = function()
+      require('glow').setup({
+          style = "dark",
+          width = 120,
+      })
+    end,
+    lazy = false,
+  },
   {
     "CRAG666/code_runner.nvim",
     config = function ()
       require('code_runner').setup {
         mode = "term",
+        focus = true,
+        -- startinsert = true,
       }
     end,
     lazy = false,
@@ -29,15 +56,17 @@ local plugins = {
     "mattn/emmet-vim",
   },
   -- Override plugin definition options
-  {
-    'pocco81/auto-save.nvim',
-    config = function()
-      require('auto-save').setup {
-        enabled = false,
-      }
-    end,
-    cond = nil,
-  },
+
+{
+  '0x00-ketsu/autosave.nvim',
+	config = function()
+		 require("autosave").setup {
+      enable = false,
+		 }
+	end,
+  lazy = false,
+},
+
   {
     "neovim/nvim-lspconfig",
     dependencies = {

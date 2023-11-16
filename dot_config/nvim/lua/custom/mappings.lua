@@ -24,6 +24,10 @@ M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["<leader>rc"] = {":RunCode<CR>", "Runs za code", opts = {silent=true, nowait = true}},
+    ["<leader>ct"] = {"<cmd> Telescope neoclip <CR>", "Open the clipboard manager"},
+    ["<leader>cs"] = {"<cmd>:ASToggle<CR>", "AutoSaveToggle"},
+    ["<leader>cc"] = {"<cmd>:set so=999<CR>", "Keep cursor centered"},
+    ["<leader>co"] = {"<cmd>:set so=2<CR>", "Keep cursor Default"},
   },
   v = {
     [">"] = { ">gv", "indent"},
