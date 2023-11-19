@@ -113,6 +113,7 @@ local options = {
     { name = "cmp_html" }, -- Ensure this line is present
     { name = "cmp_css" }, -- Ensure this line is present
     { name = "cmp_javascript" },
+    {name = "codeium"},
   },
 }
 

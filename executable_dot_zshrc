@@ -77,7 +77,7 @@ ZSH_THEME="blinks"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
-
+  zsh-autosuggestions
 	)
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
@@ -90,7 +90,6 @@ fi
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -147,6 +146,8 @@ alias listdir="ls -d */ > list"
 alias tb="taskbook"
 
 alias t3w='tmux new-session \; split-window -h \; split-window -v \; select-layout "$(cat ~/minimal3Win)"'
+alias lg='lazygit'
+alias peaclock='peaclock --config-dir ~/.config/peaclock'
 
 #pacman
 alias sps='sudo pacman -S'
@@ -509,7 +510,6 @@ alias personal='cp -Rf /personal/* ~'
 # CUSTOM ENV VAR
 export CURSEFORGE_API_KEY=$2a$10$sI.yRk4h4R49XYF94IIijOrO4i3W3dAFZ4ssOlNE10GYrDhc2j8K.
 
-
 # PATHS
 export PATH=/home/red/.cargo/bin:$PATH
 export PATH=/home/red/progs/eww/target/release:$PATH
@@ -524,7 +524,7 @@ eval "$(fasd --init auto)"
 eval "$(pyenv init -)"
 # reporting tools - install when not installed
 #neofetch
-nfetchT
+
 #screenfetch
 #alsi
 #paleofetch
@@ -539,6 +539,7 @@ nfetchT
 #cpufetch
 #colorscript random
 #
+nfetchT
 eval "$(starship init zsh)"
 # Set up Node Version Manager
 #source /usr/share/nvm/init-nvm.sh

@@ -5,10 +5,8 @@
 --   command = "tabdo wincmd =",
 -- })
 vim.g.vscode_snippets_path = "~/Documents/ProjectsDit/Projects/CodeQ/CF"
-vim.g["test#strategy"] = "neovim"
-vim.g["test#neovim#term_position"] = "vert"
-vim.g["test#neovim#executable"] = "g++"  -- Set your compiler, e.g., "gcc" for C
-vim.g["test#neovim#exec_args"] = {"-o", "a.out", "-"}
-vim.g["test#neovim#term_exec"] = "./a.out"
-vim.g["test#neovim#term_close"] = "kill"
 
+-- vim.opt.foldcolumn="1"
+vim.opt.foldlevel=20
+vim.opt.foldmethod="expr"
+vim.opt.foldexpr="nvim_treesitter#foldexpr()"
