@@ -5,8 +5,9 @@
 --   command = "tabdo wincmd =",
 -- })
 vim.g.vscode_snippets_path = "~/Documents/ProjectsDit/Projects/CodeQ/CF"
-
 -- vim.opt.foldcolumn="1"
 vim.opt.foldlevel=20
 vim.opt.foldmethod="expr"
 vim.opt.foldexpr="nvim_treesitter#foldexpr()"
+
+

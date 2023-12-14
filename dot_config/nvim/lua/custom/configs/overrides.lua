@@ -41,6 +41,12 @@ M.mason = {
     "clangd",
     "clang-format",
     "codelldb",
+    -- Rust
+    "rust-analyzer",
+    "rustfmt",
+
+    --Python
+    "pyright",
   },
 }
 

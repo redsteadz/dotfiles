@@ -7,7 +7,7 @@ local lspconfig = require "lspconfig"
 local servers = { "html", "cssls", "tsserver", "clangd" }
 
 for _, lsp in ipairs(servers) do
-    if lsp == "html" then
+  if lsp == "html" then
     lspconfig[lsp].setup {
       on_attach = on_attach,
       capabilities = capabilities,
@@ -24,28 +24,54 @@ for _, lsp in ipairs(servers) do
       cmd = { "typescript-language-server", "--stdio" },
     }
   else
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  cmd = {
-    "clangd",
-    "--offset-encoding=utf-16",
-  },
-  }
-  end
-end
-lspconfig.emmet_ls.setup({
-    -- on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
-    init_options = {
-      html = {
-        options = {
-          -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-          ["bem.enabled"] = true,
-        },
+    lspconfig[lsp].setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = {
+        "clangd",
+        "--offset-encoding=utf-16",
       },
     }
-})
--- 
--- lspconfig.pyright.setup { blabla}
+  end
+end
+lspconfig.emmet_ls.setup {
+  -- on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {
+    "css",
+    "eruby",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "sass",
+    "scss",
+    "svelte",
+    "pug",
+    "typescriptreact",
+    "vue",
+  },
+  init_options = {
+    html = {
+      options = {
+        -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+        ["bem.enabled"] = true,
+      },
+    },
+  },
+}
+lspconfig.rust_analyzer.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "rust" },
+  root_dir = lspconfig.util.root_pattern "Cargo.toml",
+  settings = {
+    ["rust_analyzer"] = {
+      cargo = {
+        allfeatures = true,
+      },
+    },
+  },
+}
+
+lspconfig.pyright.setup {}
