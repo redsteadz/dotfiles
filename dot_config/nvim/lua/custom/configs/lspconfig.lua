@@ -4,7 +4,15 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "clangd" }
+local servers = { "html", "cssls", "tsserver", "clangd"}
+
+lspconfig.tailwindcss.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  filetypes = { "typescriptreact", "javascriptreact", "svelte", "vue"},
+}
+
 
 for _, lsp in ipairs(servers) do
   if lsp == "html" then
@@ -21,16 +29,20 @@ for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
       on_attach = on_attach,
       capabilities = capabilities,
+      filetypes = {"typescriptreact", "tsx", "typescript", "javascript", "javascriptreact"},
       cmd = { "typescript-language-server", "--stdio" },
     }
   else
     lspconfig[lsp].setup {
       on_attach = on_attach,
       capabilities = capabilities,
+      filetypes = { "c", "cpp", "objc", "nvim" },
+
       cmd = {
         "clangd",
         "--offset-encoding=utf-16",
       },
+
     }
   end
 end
@@ -73,5 +85,14 @@ lspconfig.rust_analyzer.setup {
     },
   },
 }
+
+-- lspconfig.tsserver.setup{
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   cmd = { "typescript-language-server", "--stdio" },
+--   filetypes = {
+--     "typescriptreact",},
+-- }
+
 
 lspconfig.pyright.setup {}

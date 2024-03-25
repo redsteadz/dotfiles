@@ -19,6 +19,8 @@ M.dap = {
     ["<C-k>"] = {"<cmd> TmuxNavigateUp<CR>", "window up"},
   }
 }
+
+
 -- M.leap = {
 --   n = {
 --     ["f"] = {"<Plug>(leap-forward-to)", "Leap forward to"},
@@ -63,6 +65,9 @@ M.general = {
     ["<leader>cc"] = {"<cmd>:set so=999<CR>", "Keep cursor centered"},
     ["<leader>cd"] = {"<cmd>:set so=2<CR>", "Keep cursor Default"},
     ["="] = {"za", "Opens Folds"},
+    ["<leader>rr"] = {"<cmd> CompetiTest run<CR>", "Run test"},
+    ["<leader>fc"] = {"<cmd> CompetiTest receive contest<CR>", "receive Contest"},
+    ["<leader>fp"] = {"<cmd> CompetiTest receive problem<CR>", "receive Problem"},
     -- ["zM"] = {"lua require('ufo').closeAllFolds <CR>", "Opens Folds"},
 
   },

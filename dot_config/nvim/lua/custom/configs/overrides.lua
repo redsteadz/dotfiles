@@ -35,6 +35,7 @@ M.mason = {
     "css-lsp",
     "html-lsp",
     "typescript-language-server",
+    "tailwindcss-language-server",
     "deno",
     "prettier",
     -- c/cpp stuff
@@ -47,6 +48,9 @@ M.mason = {
 
     --Python
     "pyright",
+
+    -- SQL 
+    "sqlls",
   },
 }
 

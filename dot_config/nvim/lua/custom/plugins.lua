@@ -9,15 +9,93 @@ local function lazy_load_check(filetypes)
   end
   return true
 end
-
 ---@type NvPluginSpec[]
 local plugins = {
+  {
+    'elkowar/yuck.vim',
+    ft = "yuck",
+    lazy = true,
+  },
+{
+  "roobert/tailwindcss-colorizer-cmp.nvim",
+  -- optionally, override the default options:
+  config = function()
+    require("tailwindcss-colorizer-cmp").setup({
+      color_square_width = 2,
+    })
+  end,
+},
+  {
+  "epwalsh/obsidian.nvim",
+  version = "*",  -- recommended, use latest release instead of latest commit
+  lazy = true,
+  ft = "markdown",
+  -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+  -- event = {
+  --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+  --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+  --   "BufReadPre path/to/my-vault/**.md",
+  --   "BufNewFile path/to/my-vault/**.md",
+  -- },
+  dependencies = {
+    -- Required.
+    "nvim-lua/plenary.nvim",
+
+    -- see below for full list of optional dependencies 👇
+
+  },
+  opts = {
+    workspaces = {
+      {
+        name = "personal",
+        path = "~/Documents/ProjectsDit/devSensei/content",
+      },
+    },
+
+    -- see below for full list of options 👇
+  },
+
+  },
+
+  {
+  "folke/todo-comments.nvim",
+  dependencies = { "nvim-lua/plenary.nvim" },
+  opts = {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  },
+  lazy = false,
+},
+  {
+    "David-Kunz/gen.nvim",
+    opts = {
+      model = "mistral", -- The default model to use.
+      display_mode = "float", -- The display mode. Can be "float" or "split".
+      show_prompt = false, -- Shows the Prompt submitted to Ollama.
+      show_model = false, -- Displays which model you are using at the beginning of your chat session.
+      no_auto_close = false, -- Never closes the window automatically.
+      init = function(options)
+        pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
+      end,
+      -- Function to initialize Ollama
+      command = "curl --silent --no-buffer -X POST http://localhost:11434/api/generate -d $body",
+      -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
+      -- This can also be a lua function returning a command string, with options as the input parameter.
+      -- The executed command must return a JSON object with { response, context }
+      -- (context property is optional).
+      list_models = "<omitted lua function>", -- Retrieves a list of model names
+      debug = false, -- Prints errors and the command which is run.
+    },
+    lazy = false,
+  },
   {
     "kawre/leetcode.nvim",
     build = ":TSUpdate html",
     lazy = leet_arg ~= vim.fn.argv()[1],
     opts = {
       arg = leet_arg,
+      -- image_support = true,
     },
     dependencies = {
       "nvim-telescope/telescope.nvim",
@@ -39,6 +117,41 @@ local plugins = {
     end,
     lazy = false,
   },
+
+  {
+
+    "3rd/image.nvim",
+    opts = {
+
+ backend = "kitty",
+  integrations = {
+    markdown = {
+      enabled = true,
+      clear_in_insert_mode = false,
+      download_remote_images = true,
+      only_render_image_at_cursor = false,
+      filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
+    },
+    neorg = {
+      enabled = true,
+      clear_in_insert_mode = false,
+      download_remote_images = true,
+      only_render_image_at_cursor = false,
+      filetypes = { "norg" },
+    },
+  },
+  max_width = nil,
+  max_height = nil,
+  max_width_window_percentage = 50,
+  max_height_window_percentage = 50,
+  window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+  window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+  editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
+  tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+  hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
+    }
+  
+  },
   {
     "ellisonleao/carbon-now.nvim",
     lazy = true,
@@ -52,7 +165,11 @@ local plugins = {
     "xeluxee/competitest.nvim",
     dependencies = "MunifTanjim/nui.nvim",
     config = function()
-      require("competitest").setup()
+      require("competitest").setup{
+        template_file = {
+          cpp = "/home/red/Documents/ProjectsDit/Projects/CodeQ/CF/contest/temp.cpp",
+        }
+      }
     end,
     event = "VeryLazy",
   },
@@ -198,7 +315,24 @@ local plugins = {
       },
     },
     config = function()
-      if not lazy_load_check { "rust", "python", "javascript", "typescript", "lua", "c", "cpp", "html", "css" } then
+      if
+        not lazy_load_check {
+          "rust",
+          "python",
+          "javascriptreact",
+          "javascript",
+          "typescript",
+          "typescriptreact",
+          "lua",
+          "c",
+          "cpp",
+          "html",
+          "css",
+          "nvim",
+          "leetcode",
+          "leetcode.nvim",
+        }
+      then
         require "plugins.configs.lspconfig"
         require "custom.configs.lspconfig"
       end

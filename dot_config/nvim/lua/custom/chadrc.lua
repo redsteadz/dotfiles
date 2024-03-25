@@ -1,6 +1,7 @@
 ---@type ChadrcConfig
 local M = {}
-
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
 -- Path to overriding theme and highlights files
 local highlights = require "custom.highlights"
 
