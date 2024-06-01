@@ -12,81 +12,166 @@ end
 ---@type NvPluginSpec[]
 local plugins = {
   {
-    'elkowar/yuck.vim',
+    "folke/twilight.nvim",
+    opts = {},
+    lazy = false,
+  },
+  {
+    "folke/zen-mode.nvim",
+    opts = {
+    },
+    lazy = false,
+  },
+  {
+    "SmiteshP/nvim-navbuddy",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim",
+    },
+    opts = { lsp = { auto_attach = true } },
+    config = function(_, opts)
+      require("nvim-navbuddy").setup()
+    end,
+  },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    opts = {
+      -- configurations go here
+    },
+    lazy = false,
+  },
+  {
+    "Civitasv/cmake-tools.nvim",
+    config = function()
+      require "custom.configs.cmake_tools"
+    end,
+    lazy = false,
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require "custom.configs.copilot"
+    end,
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+    },
+    opts = {
+      debug = true, -- Enable debugging
+      -- See Configuration section for rest
+    },
+    lazy = false,
+    -- See Commands section for default commands if you want to lazy load on them
+  },
+  {
+    "elkowar/yuck.vim",
     ft = "yuck",
     lazy = true,
   },
-{
-  "roobert/tailwindcss-colorizer-cmp.nvim",
-  -- optionally, override the default options:
-  config = function()
-    require("tailwindcss-colorizer-cmp").setup({
-      color_square_width = 2,
-    })
-  end,
-},
   {
-  "epwalsh/obsidian.nvim",
-  version = "*",  -- recommended, use latest release instead of latest commit
-  lazy = true,
-  ft = "markdown",
-  -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-  -- event = {
-  --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-  --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-  --   "BufReadPre path/to/my-vault/**.md",
-  --   "BufNewFile path/to/my-vault/**.md",
-  -- },
-  dependencies = {
-    -- Required.
-    "nvim-lua/plenary.nvim",
-
-    -- see below for full list of optional dependencies 👇
-
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    },
+    config = function(_, opts)
+      require "custom.configs.noice"
+    end,
   },
-  opts = {
-    workspaces = {
-      {
-        name = "personal",
-        path = "~/Documents/ProjectsDit/devSensei/content",
+  {
+    "mfussenegger/nvim-dap",
+    config = function(_, _)
+      require "custom.configs.nvim_dap"
+    end,
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+    opts = {
+      handles = {},
+      ensure_installed = {
+        "codelldb",
       },
     },
-
-    -- see below for full list of options 👇
   },
-
-  },
-
   {
-  "folke/todo-comments.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  opts = {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  },
-  lazy = false,
-},
-  {
-    "David-Kunz/gen.nvim",
-    opts = {
-      model = "mistral", -- The default model to use.
-      display_mode = "float", -- The display mode. Can be "float" or "split".
-      show_prompt = false, -- Shows the Prompt submitted to Ollama.
-      show_model = false, -- Displays which model you are using at the beginning of your chat session.
-      no_auto_close = false, -- Never closes the window automatically.
-      init = function(options)
-        pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
-      end,
-      -- Function to initialize Ollama
-      command = "curl --silent --no-buffer -X POST http://localhost:11434/api/generate -d $body",
-      -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
-      -- This can also be a lua function returning a command string, with options as the input parameter.
-      -- The executed command must return a JSON object with { response, context }
-      -- (context property is optional).
-      list_models = "<omitted lua function>", -- Retrieves a list of model names
-      debug = false, -- Prints errors and the command which is run.
+    "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
     },
+    config = function()
+      require "custom.configs.nvim_dap_ui"
+    end,
+  },
+  {
+    "roobert/tailwindcss-colorizer-cmp.nvim",
+    ft = { "html", "javascriptreact", "typescriptreact", "javascript", "typescript", "svelte", "vue" },
+    -- optionally, override the default options:
+    config = function()
+      require("tailwindcss-colorizer-cmp").setup {
+        color_square_width = 2,
+      }
+    end,
+  },
+  {
+    "epwalsh/obsidian.nvim",
+    version = "*", -- recommended, use latest release instead of latest commit
+    lazy = true,
+    ft = "markdown",
+    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+    -- event = {
+    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+    --   "BufReadPre path/to/my-vault/**.md",
+    --   "BufNewFile path/to/my-vault/**.md",
+    -- },
+    dependencies = {
+      -- Required.
+      "nvim-lua/plenary.nvim",
+      -- see below for full list of optional dependencies 👇
+    },
+    opts = {
+      workspaces = {
+        {
+          name = "personal",
+          path = "~/Documents/ProjectsDit/devSensei/content",
+        },
+      },
+
+      -- see below for full list of options 👇
+    },
+  },
+
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
     lazy = false,
   },
   {
@@ -121,36 +206,7 @@ local plugins = {
   {
 
     "3rd/image.nvim",
-    opts = {
-
- backend = "kitty",
-  integrations = {
-    markdown = {
-      enabled = true,
-      clear_in_insert_mode = false,
-      download_remote_images = true,
-      only_render_image_at_cursor = false,
-      filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
-    },
-    neorg = {
-      enabled = true,
-      clear_in_insert_mode = false,
-      download_remote_images = true,
-      only_render_image_at_cursor = false,
-      filetypes = { "norg" },
-    },
-  },
-  max_width = nil,
-  max_height = nil,
-  max_width_window_percentage = 50,
-  max_height_window_percentage = 50,
-  window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
-  window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-  editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-  tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-  hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
-    }
-  
+    opts = require "custom.configs.image",
   },
   {
     "ellisonleao/carbon-now.nvim",
@@ -165,29 +221,10 @@ local plugins = {
     "xeluxee/competitest.nvim",
     dependencies = "MunifTanjim/nui.nvim",
     config = function()
-      require("competitest").setup{
-        template_file = {
-          cpp = "/home/red/Documents/ProjectsDit/Projects/CodeQ/CF/contest/temp.cpp",
-        }
-      }
+      require "custom.configs.competitest"
     end,
     event = "VeryLazy",
   },
-  {
-    "gen740/SmoothCursor.nvim",
-    config = function()
-      require("smoothcursor").setup()
-    end,
-    lazy = false,
-  },
-  -- {
-  --     "ggandor/leap.nvim",
-  --     config = function()
-  --         -- require('leap').add_default_mappings()
-  --     end,
-  --     dependencies = { "tpope/vim-repeat" },
-  --     lazy = false,
-  -- },
   {
     "smoka7/hop.nvim",
     version = "*",
@@ -203,9 +240,7 @@ local plugins = {
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     config = function()
-      require("nvim-surround").setup {
-        -- Configuration here, or leave empty to use defaults
-      }
+      require("nvim-surround").setup {}
     end,
   },
   {
@@ -217,9 +252,6 @@ local plugins = {
       { "<leader>o", "<cmd>Oil --float<cr>", desc = "Oil" },
     },
     lazy = false,
-  },
-  {
-    "christoomey/vim-tmux-navigator",
   },
   {
     "Exafunction/codeium.nvim",
@@ -236,7 +268,7 @@ local plugins = {
     "AckslD/nvim-neoclip.lua",
     requires = {
       -- you'll need at least one of these
-      -- {'nvim-telescope/telescope.nvim'},
+      { "nvim-telescope/telescope.nvim" },
       -- {'ibhagwan/fzf-lua'},
     },
     config = function()
@@ -270,7 +302,7 @@ local plugins = {
   },
   {
     "windwp/nvim-ts-autotag",
-    lazy = false,
+    ft = { "html", "javascriptreact", "typescriptreact", "javascript", "typescript", "svelte", "vue" },
   },
   {
     "windwp/nvim-autopairs",
@@ -348,10 +380,6 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
-  },
-
-  {
-    "windwp/nvim-ts-autotag",
   },
 
   {

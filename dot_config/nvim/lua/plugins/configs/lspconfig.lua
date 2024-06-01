@@ -4,6 +4,9 @@ require "nvchad.lsp"
 local M = {}
 local utils = require "core.utils"
 
+local navic = require "nvim-navic"
+local navbuddy = require("nvim-navbuddy")
+
 -- export on_attach & capabilities for custom lspconfigs
 
 M.on_attach = function(client, bufnr)
@@ -11,13 +14,16 @@ M.on_attach = function(client, bufnr)
   client.server_capabilities.documentRangeFormattingProvider = false
 
   utils.load_mappings("lspconfig", { buffer = bufnr })
-
   if client.server_capabilities.signatureHelpProvider then
     require("nvchad.signature").setup(client)
+    navbuddy.attach(client, bufnr)
   end
 
   if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then
     client.server_capabilities.semanticTokensProvider = nil
+  end
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
   end
 end
 

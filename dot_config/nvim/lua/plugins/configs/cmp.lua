@@ -114,6 +114,7 @@ local options = {
     { name = "cmp_css" }, -- Ensure this line is present
     { name = "cmp_javascript" },
     {name = "codeium"},
+    {name = "emmet_vim"}
   },
 }
 

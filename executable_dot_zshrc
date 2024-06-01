@@ -121,7 +121,7 @@ export HISTCONTROL=ignoreboth:erasedups
 
 # Make nano the default editor
 
-export EDITOR='nano'
+export EDITOR='nvim'
 export VISUAL='nano'
 
 #PS1='[\u@\h \W]\$ '
@@ -137,10 +137,11 @@ fi
 ### ALIASES ###
 
 #list
-alias ls='ls --color=auto'
+alias ls='lsd -hA --group-dirs=first'
 alias la='ls -a'
 alias ll='ls -alFh'
-alias l='ls'
+alias l='lsd -hA --group-dirs=first'
+
 alias l.="ls -A | egrep '^\.'"
 alias listdir="ls -d */ > list"
 alias tb="taskbook"
@@ -148,6 +149,7 @@ alias tb="taskbook"
 alias t3w='tmux new-session \; split-window -h \; split-window -v \; select-layout "$(cat ~/minimal3Win)"'
 alias lg='lazygit'
 alias peaclock='peaclock --config-dir ~/.config/peaclock'
+alias nv='neovide'
 
 #pacman
 alias sps='sudo pacman -S'
@@ -158,10 +160,27 @@ alias spqo='sudo pacman -Qo'
 alias spsii='sudo pacman -Sii'
 
 # show the list of packages that need this package - depends mpv as example
-function_depends()  {
-    search=$(echo "$1")
-    sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
-    }
+# function_depends()  {
+#     search=$(echo "$1")
+#     sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
+#     }
+#
+# alias nvim-custom="NVIM_APPNAME=Custom nvim"
+# alias nvim-c="NVIM_APPNAME=chad_nvim_custom nvim"
+#
+# function nvims() {
+#   items=("default" "Custom" "chad_nvim_custom")
+#   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
+#   if [[ -z $config ]]; then
+#     echo "Nothing selected"
+#     return 0
+#   elif [[ $config == "default" ]]; then
+#     config=""
+#   fi
+#   NVIM_APPNAME=$config nvim $@
+# }
+#
+# bindkey -s ^a "nvims\n"
 
 alias depends='function_depends'
 
@@ -517,11 +536,15 @@ export PATH=/usr/lib/:$PATH
 export PATH=/home/red/go/bin:$PATH
 export PATH=/home/red/.local/bin:$PATH
 export PYENV_ROOT="$HOME/.pyenv"
+export OPENAI_API_KEY='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'
 export FZF_DEFAULT_COMMAND='find .'
 export BROSWER="brave"
+export PATH="$HOME/.tmuxifier/bin:$PATH"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(fasd --init auto)"
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
+# eval "$(ssh-agent -s)"
+eval "$(tmuxifier init -)"
 # reporting tools - install when not installed
 #neofetch
 
@@ -539,7 +562,7 @@ eval "$(pyenv init -)"
 #cpufetch
 #colorscript random
 #
-nfetchT
+# nfetchT
 eval "$(starship init zsh)"
 # Set up Node Version Manager
 #source /usr/share/nvm/init-nvm.sh
