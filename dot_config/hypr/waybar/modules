@@ -1,4 +1,11 @@
 {
+  "custom/prayerbar": {
+    "format": "{}",
+    "tooltip": true,
+    "interval": 60,
+    "exec": "prayerbar --city 'Karachi'",
+    "return-type": "json"
+},
   "backlight": {
     "interval": 2,
     "align": 0,
@@ -139,6 +146,7 @@
     "interval": 5,
     "format-wifi": " 󰤢  {essid}",
     "format-ethernet": " {ipaddr}/{cidr}",
+    "on-click": "~/.config/hypr/scripts/rofi-network-manager/rofi-network-manager.sh",
     "format-linked": " {ifname} (No IP)",
     "format-disconnected": "睊 Disconnected",
     "format-disabled": "睊 Disabled",

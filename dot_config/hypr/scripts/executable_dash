@@ -7,9 +7,9 @@
 if ! pgrep -x cava > /dev/null; then
   hyprctl dispatch -- exec kitty --class cava_dash -T cava_dash -e cava
 fi
-if ! pgrep -x spt > /dev/null; then
-  hyprctl dispatch -- exec kitty --class spot -T spot -e spt
-fi
-if ! pgrep -x btop > /dev/null; then
-  hyprctl dispatch -- exec kitty --class btop_dash -T btop_dash -e btop
-fi
+# if ! pgrep -x spt > /dev/null; then
+#   hyprctl dispatch -- exec kitty --class spot -T spot -e spt
+# fi
+# if ! pgrep -x btop > /dev/null; then
+#   hyprctl dispatch -- exec kitty --class btop_dash -T btop_dash -e btop
+# fi

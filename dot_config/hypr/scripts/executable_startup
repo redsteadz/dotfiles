@@ -39,4 +39,5 @@ sudo tlp start
 sudo tlp setcharge
 pypr
 sudo modprobe snd_aloop
-
+eww -c $HOME/Documents/ProjectsDit/ewwWidgets daemon
+eww -c /home/red/Documents/ProjectsDit/ewwWidgets/ open notifT
