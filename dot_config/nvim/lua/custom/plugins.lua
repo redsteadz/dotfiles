@@ -12,14 +12,21 @@ end
 ---@type NvPluginSpec[]
 local plugins = {
   {
+    "linguini1/pulse.nvim",
+    version = "*", -- Latest stable release
+    config = function()
+      require("pulse").setup()
+    end, -- Call setup to get the basic config
+    lazy = false,
+  },
+  {
     "folke/twilight.nvim",
     opts = {},
     lazy = false,
   },
   {
     "folke/zen-mode.nvim",
-    opts = {
-    },
+    opts = {},
     lazy = false,
   },
   {
@@ -254,15 +261,15 @@ local plugins = {
     lazy = false,
   },
   {
-    "Exafunction/codeium.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
-    },
-    config = function()
-      require("codeium").setup {}
-    end,
-    lazy = false,
+    -- "Exafunction/codeium.nvim",
+    -- dependencies = {
+    --   "nvim-lua/plenary.nvim",
+    --   "hrsh7th/nvim-cmp",
+    -- },
+    -- config = function()
+    --   require "custom.configs.codeium"
+    -- end,
+    -- lazy = false,
   },
   {
     "AckslD/nvim-neoclip.lua",
@@ -291,6 +298,17 @@ local plugins = {
       require("code_runner").setup {
         mode = "term",
         focus = true,
+        filetype = {
+          asm = {
+            "nasm -f elf32 -o out.o $fileName &&",
+            "ld -m elf_i386 -s -o out out.o &&",
+            "./out"
+          },
+          cs = function(...)
+            local root_dir = require("lspconfig").util.root_pattern "*.csproj"(vim.loop.cwd())
+            return "cd " .. root_dir .. " && dotnet run$end"
+          end,
+        },
         -- startinsert = true,
       }
     end,
@@ -357,6 +375,8 @@ local plugins = {
           "typescriptreact",
           "lua",
           "c",
+          "asm",
+          "s",
           "cpp",
           "html",
           "css",

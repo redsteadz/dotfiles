@@ -51,6 +51,9 @@ M.mason = {
 
     -- SQL 
     "sqlls",
+
+    --asm 
+    "asm_lsp"
   },
 }
 
