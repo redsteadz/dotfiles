@@ -165,22 +165,22 @@ alias spsii='sudo pacman -Sii'
 #     sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
 #     }
 #
-# alias nvim-custom="NVIM_APPNAME=Custom nvim"
-# alias nvim-c="NVIM_APPNAME=chad_nvim_custom nvim"
-#
-# function nvims() {
-#   items=("default" "Custom" "chad_nvim_custom")
-#   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
-#   if [[ -z $config ]]; then
-#     echo "Nothing selected"
-#     return 0
-#   elif [[ $config == "default" ]]; then
-#     config=""
-#   fi
-#   NVIM_APPNAME=$config nvim $@
-# }
-#
-# bindkey -s ^a "nvims\n"
+alias nvim-custom="NVIM_APPNAME=Custom nvim"
+alias nvim-n="NVIM_APPNAME=nvim_n nvim"
+
+function nvims() {
+  items=("default" "Custom" "nvim_n")
+  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
+  if [[ -z $config ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ $config == "default" ]]; then
+    config=""
+  fi
+  NVIM_APPNAME=$config nvim $@
+}
+
+bindkey -s ^a "nvims\n"
 
 alias depends='function_depends'
 
@@ -527,7 +527,6 @@ alias personal='cp -Rf /personal/* ~'
 [[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
 
 # CUSTOM ENV VAR
-export CURSEFORGE_API_KEY=$2a$10$sI.yRk4h4R49XYF94IIijOrO4i3W3dAFZ4ssOlNE10GYrDhc2j8K.
 
 # PATHS
 export PATH=/home/red/.cargo/bin:$PATH
@@ -536,10 +535,10 @@ export PATH=/usr/lib/:$PATH
 export PATH=/home/red/go/bin:$PATH
 export PATH=/home/red/.local/bin:$PATH
 export PYENV_ROOT="$HOME/.pyenv"
-export OPENAI_API_KEY='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'
 export FZF_DEFAULT_COMMAND='find .'
 export BROSWER="brave"
 export PATH="$HOME/.tmuxifier/bin:$PATH"
+export PATH=~/.npm-global/bin:$PATH
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(fasd --init auto)"
 # eval "$(pyenv init -)"
