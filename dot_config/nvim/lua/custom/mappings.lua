@@ -20,24 +20,6 @@ M.dap = {
   }
 }
 
-
--- M.leap = {
---   n = {
---     ["f"] = {"<Plug>(leap-forward-to)", "Leap forward to"},
---     ["F"] = {"<Plug>(leap-backward-to)", "Leap backward to"},
---     ["t"] = {"<Plug>(leap-forward-till)", "Leap forward till"},
---     ["T"] = {"<Plug>(leap-backward-till)", "Leap backward till"},
---   },
---   x = {
---     ["f"] = {"<Plug>(leap-forward-to)", "Leap forward to"},
---     ["F"] = {"<Plug>(leap-backward-to)", "Leap backward to"},
---     ["t"] = {"<Plug>(leap-forward-till)", "Leap forward till"},
---     ["T"] = {"<Plug>(leap-backward-till)", "Leap backward till"},
---   }
--- }
-
-
-
 M.hop = {
     n = {
         ["f"] = {"<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, })<CR>", "Hop forward"},
@@ -52,8 +34,6 @@ M.hop = {
         ["T"] = {"<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR,  hint_offset = 1 })<CR>", "Hop backward till"},
     },
 }
-
--- more keybinds!
 
 
 M.general = {
