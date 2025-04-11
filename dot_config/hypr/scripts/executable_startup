@@ -4,8 +4,6 @@
 #type "var" in a terminal to change settings - example
 #variety &
 
-number_file="/home/red/.config/hypr/switch.txt"
-echo "0" > "$number_file"
 SCRIPTSDIR=$HOME/.config/hypr/scripts
 
 # Kill already running process
@@ -15,6 +13,11 @@ for _prs in "${_ps[@]}"; do
 		killall -9 ${_prs}
 	fi
 done
+
+# polkit agent
+if [[ ! 'pidof polkit-gnome-authentication-agent-1' ]];then
+	/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+fi
 
 # Apply themes
 ${SCRIPTSDIR}/gtkthemes &
@@ -34,10 +37,5 @@ dex $HOME/.config/autostart/arcolinux-welcome-app.desktop &
 #dropbox &
 #telegram-desktop &
 #discord &
-# nm-applet --indicator
-sudo tlp start
-sudo tlp setcharge
-pypr
-sudo modprobe snd_aloop
-eww -c $HOME/Documents/ProjectsDit/ewwWidgets daemon
-eww -c /home/red/Documents/ProjectsDit/ewwWidgets/ open notifT
+# nm-applet --indicator &
+# blueman-applet

@@ -3,10 +3,10 @@
 ## General
 show=drun
 prompt=Apps
-normal_window=true
+normal_window=false
 layer=overlay
-term=alacritty
-columns=1
+term=kitty
+columns=5
 
 ## Geometry
 width=80%
@@ -32,6 +32,7 @@ insensitive=false
 hide_scroll=true
 no_actions=true
 sort_order=default
+gtk_dark=true
 filter_rate=100
 
 ## Keys

@@ -1,17 +1,18 @@
 {
   "include": "~/.config/hypr/waybar/modules",
   "layer": "top",
-  //"mode": "dock",
   "exclusive": true,
+  "height": 35,
   "passthrough": false,
   "position": "top",
   "spacing": 0,
   "fixed-center": true,
   "ipc": true,
-  "margin-left": 0,
-  "margin-right": 0,
+  "margin-left": 5,
+  "margin-right": 5,
+  "margin-top": 5,
 
-  "modules-left": ["cpu", "memory","disk", "mpris"],
+  "modules-left": ["cpu", "memory", "disk", "bluetooth", "cava"],
   "modules-center": ["hyprland/workspaces"],
-  "modules-right": [ "custom/cycle_wall","custom/updater", "pulseaudio", "battery" ,"network", "custom/prayerbar", "clock", "tray", "custom/power"],
+  "modules-right": ["custom/cycle_wall", "custom/updater", "pulseaudio", "battery", "network", "clock", "tray", "custom/power"]
 }

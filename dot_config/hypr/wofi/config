@@ -3,10 +3,10 @@
 ## General
 show=drun
 prompt=Apps
-normal_window=true
+normal_window=false
 layer=top
-term=alacritty
-columns=1
+term=kitty
+columns=2
 
 ## Geometry
 width=700px
@@ -18,7 +18,7 @@ line_wrap=off
 dynamic_lines=false
 
 ## Images
-allow_markup=false
+allow_markup=true
 allow_images=true
 image_size=24
 

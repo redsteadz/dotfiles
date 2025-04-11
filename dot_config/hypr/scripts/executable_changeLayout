@@ -10,17 +10,21 @@ case $LAYOUT in
 	hyprctl keyword bind SUPER,J,cyclenext
 	hyprctl keyword bind SUPER,K,cyclenext,prev
 	hyprctl keyword bind SUPER,O,togglesplit
-  notify-send "Master Layout"
+  notify-send "Dwindle Layout"
 	;;
 "dwindle")
-	hyprctl keyword general:layout master
+	hyprctl keyword general:layout scroller
+  notify-send "Scroller Layout"
+	;;
+"scroller")
+  hyprctl keyword general:layout master
+  notify-send "Master Layout"
 	hyprctl keyword unbind SUPER,J
 	hyprctl keyword unbind SUPER,K
 	hyprctl keyword unbind SUPER,O
 	hyprctl keyword bind SUPER,J,layoutmsg,cyclenext
 	hyprctl keyword bind SUPER,K,layoutmsg,cycleprev
-  notify-send "Dwindle Layout"
-	;;
+  ;;
 *) ;;
 
 esac
