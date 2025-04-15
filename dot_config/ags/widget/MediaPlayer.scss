@@ -1,0 +1,313 @@
+@use "sass:color";
+
+// Catppuccin Mocha colors
+$rosewater: #f5e0dc;
+$flamingo: #f2cdcd;
+$pink: #f5c2e7;
+$mauve: #cba6f7;
+$red: #f38ba8;
+$maroon: #eba0ac;
+$peach: #fab387;
+$yellow: #f9e2af;
+$green: #a6e3a1;
+$teal: #94e2d5;
+$sky: #89dceb;
+$sapphire: #74c7ec;
+$blue: #89b4fa;
+$lavender: #b4befe;
+$text: #cdd6f4;
+$subtext1: #bac2de;
+$subtext0: #a6adc8;
+$overlay2: #9399b2;
+$overlay1: #7f849c;
+$overlay0: #6c7086;
+$surface2: #585b70;
+$surface1: #45475a;
+$surface0: #313244;
+$base: #1e1e2e;
+$mantle: #181825;
+$crust: #11111b;
+
+// Main variables
+$fg-color: $green;
+$bg-color: $base;
+$hover-transition: 0.2s ease-in-out;
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+window {
+  all: unset;
+}
+
+button {
+  min-width: 0;
+  min-height: 0;
+  padding: 0.6rem;
+  margin-top: 0.5em;
+  border-radius: 50%;
+  background-color: $surface0;
+  color: $text;
+  transition:
+    background-color $hover-transition,
+    color $hover-transition;
+
+  &:hover {
+    background-color: $surface1;
+    color: $fg-color;
+  }
+
+  &.play-pause {
+    background-color: $fg-color;
+    color: $base;
+    padding: 0.8rem;
+
+    &:hover {
+      background-color: $lavender;
+      padding: 0.9rem;
+    }
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes topSlide {
+  from {
+    margin-top: -60px;
+  }
+  to {
+    margin-top: 0.5em;
+  }
+}
+
+@keyframes bottomSlide {
+  from {
+    margin-top: 0.5em;
+  }
+  to {
+    margin-top: -60px;
+  }
+}
+
+.TopBotAnim {
+  animation: topSlide 0.3s ease-out;
+  margin-top: 0.5em;
+}
+
+.BotTopAnim {
+  animation:
+    bottomSlide 0.3s ease-out,
+    fade-out 0.3s ease-out;
+  margin-top: -60px;
+}
+
+box.MediaPlayer {
+  padding: 1rem;
+  // margin: 0.5em;
+  background-color: $bg-color;
+  border: $fg-color solid 2px;
+  border-radius: 12px;
+  // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: background-color $hover-transition;
+
+  &:hover {
+    background-color: $red;
+  }
+
+  box.cover-art {
+    min-width: 130px;
+    min-height: 130px;
+    border-radius: 12px;
+    margin-right: 1rem;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow $hover-transition;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  box.title {
+    margin-bottom: 0.4rem;
+    animation: fade-in 0.4s ease-out;
+
+    label {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: $text;
+      transition: color $hover-transition;
+
+      &.artist {
+        font-weight: normal;
+        font-size: 1em;
+        color: $subtext1;
+        margin-top: 0.2rem;
+      }
+    }
+  }
+
+  scale {
+    padding: 0;
+    margin: 0.6rem 0;
+    min-height: 10px;
+    transition: all $hover-transition;
+
+    trough {
+      min-height: 6px;
+      background-color: $surface1;
+      border-radius: 3px;
+      transition: min-height $hover-transition;
+    }
+
+    highlight {
+      background-color: $fg-color;
+      border-radius: 3px;
+      transition: background-color $hover-transition;
+    }
+
+    &:hover {
+      trough {
+        min-height: 8px;
+      }
+
+      highlight {
+        background-color: $lavender;
+      }
+    }
+
+    slider {
+      all: unset;
+      min-width: 12px;
+      min-height: 12px;
+      background-color: $text;
+      border-radius: 50%;
+      margin: -3px;
+      transition:
+        background-color $hover-transition,
+        min-width $hover-transition,
+        min-height $hover-transition;
+      opacity: 0;
+
+      &:hover {
+        background-color: $rosewater;
+        min-width: 14px;
+        min-height: 14px;
+      }
+    }
+
+    &:hover slider {
+      opacity: 1;
+    }
+  }
+
+  box.time-labels {
+    margin-top: -0.4rem;
+    margin-bottom: 0.4rem;
+
+    label {
+      font-size: 0.8em;
+      color: $subtext0;
+    }
+  }
+
+  centerbox.actions {
+    min-width: 240px;
+    margin-top: 0.4rem;
+
+    button {
+      min-width: 0;
+      min-height: 0;
+      padding: 0.6rem;
+      margin: 0 0.3rem;
+      border-radius: 50%;
+      background-color: $surface0;
+      color: $text;
+      transition:
+        background-color $hover-transition,
+        color $hover-transition;
+
+      &:hover {
+        background-color: $surface1;
+        color: $fg-color;
+      }
+
+      &.play-pause {
+        background-color: $fg-color;
+        color: $base;
+        padding: 0.8rem;
+
+        &:hover {
+          background-color: $lavender;
+          padding: 0.9rem;
+        }
+      }
+
+      &:active {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .now-playing-indicator {
+    color: $green;
+    font-size: 0.8em;
+    margin-bottom: 0.3rem;
+    animation: pulse 2s infinite;
+  }
+
+  .volume-control {
+    margin-top: 0.6rem;
+
+    button {
+      min-width: 0;
+      min-height: 0;
+      padding: 0.4rem;
+      color: $overlay1;
+      transition: color $hover-transition;
+
+      &:hover {
+        color: $text;
+      }
+    }
+
+    scale {
+      margin: 0 0.4rem;
+      min-width: 80px;
+
+      trough {
+        min-height: 4px;
+      }
+    }
+  }
+}
